@@ -1,5 +1,11 @@
+import Nav from "./components/Nav";
+
 function App() {
-    return <div>(React Gallery App)</div>;
+    return (
+        <div className="container">
+            <Nav />
+        </div>
+    );
 }
 
 export default App;
