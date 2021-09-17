@@ -1,3 +1,4 @@
+import NotFound from "./NotFound";
 import Photo from "./Photo";
 
 const PhotoContainer = () => (
@@ -16,10 +17,7 @@ const PhotoContainer = () => (
             <Photo url="https://farm5.staticflickr.com/4425/36337012384_ba3365621e.jpg" />
 
             {/* <!-- Not Found --> */}
-            <li className="not-found">
-                <h3>No Results Found</h3>
-                <p>You search did not return any results. Please try again.</p>
-            </li>
+            <NotFound />
         </ul>
     </div>
 );
