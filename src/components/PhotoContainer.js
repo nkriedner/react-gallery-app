@@ -6,7 +6,7 @@ const PhotoContainer = (props) => (
         <h2>Results</h2>
         <ul>
             {props.photos.map((photo) => {
-                return <Photo url={photo.src} />;
+                return <Photo url={photo.src} key={photo.id} />;
             })}
 
             {/* <!-- Not Found --> */}
