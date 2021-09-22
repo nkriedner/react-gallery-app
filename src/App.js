@@ -29,6 +29,7 @@ export default class App extends React.Component {
         super();
         this.state = {
             images: [],
+            fetchedData: false,
         };
     }
 
@@ -49,7 +50,7 @@ export default class App extends React.Component {
             // license: "4"
         };
         const parameters = new URLSearchParams(data);
-        console.log("parameters:", parameters);
+        // console.log("parameters:", parameters);
         const url = `https://api.flickr.com/services/rest/?${parameters}&format=json&nojsoncallback=1`;
         // const url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api`
         // console.log("url:", url);
@@ -61,13 +62,11 @@ export default class App extends React.Component {
                 url
             )
             .then((response) => {
-                console.log(
-                    "Flickr data (response.data.photos.photo):",
-                    response.data.photos.photo
-                );
                 this.setState({
                     images: response.data.photos.photo,
+                    fetchedData: true,
                 });
+                console.log("images:", response.data.photos.photo);
             })
             .catch((error) => {
                 console.log("Error when fetching data from flickr:", error);
@@ -80,8 +79,10 @@ export default class App extends React.Component {
                 <div className="container">
                     <SearchForm />
                     <Nav />
-                    {/* <PhotoContainer photos={photos} /> */}
-                    <PhotoContainer photos={this.images} />
+                    <PhotoContainer
+                        photos={photos}
+                        images={this.state.images}
+                    />
                 </div>
             </BrowserRouter>
         );
