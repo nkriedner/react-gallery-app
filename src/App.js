@@ -1,4 +1,4 @@
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import axios from "axios";
 import Nav from "./components/Nav";
 import SearchForm from "./components/SearchForm";
@@ -44,8 +44,11 @@ export default class App extends React.Component {
         return (
             <BrowserRouter>
                 <div className="container">
+                    {/* <Route path="/search" component={SearchForm} /> */}
+                    {/* <Route path="/search" render={() => <SearchForm />} /> */}
                     <SearchForm />
                     <Nav />
+                    {/* <Route path="/" /> */}
                     <PhotoContainer images={this.state.images} />
                 </div>
             </BrowserRouter>
