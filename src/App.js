@@ -27,13 +27,13 @@ export default class App extends React.Component {
     fetchBaseImages = () => {
         Promise.all([
             axios.get(
-                `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=yoga&per_page=12&format=json&nojsoncallback=1`
+                `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=yoga&per_page=24&format=json&nojsoncallback=1`
             ),
             axios.get(
-                `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=trecking&per_page=12&format=json&nojsoncallback=1`
+                `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=trecking&per_page=24&format=json&nojsoncallback=1`
             ),
             axios.get(
-                `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=surfing&per_page=12&format=json&nojsoncallback=1`
+                `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=surfing&per_page=24&format=json&nojsoncallback=1`
             ),
         ])
             .then((responesList) => {
@@ -55,7 +55,7 @@ export default class App extends React.Component {
     searchImages = (searchTag) => {
         axios
             .get(
-                `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=${searchTag}&per_page=12&format=json&nojsoncallback=1`
+                `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=${searchTag}&per_page=24&format=json&nojsoncallback=1`
             )
             .then((response) => {
                 this.setState({
