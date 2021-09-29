@@ -21,47 +21,22 @@ export default class App extends React.Component {
     }
 
     componentDidMount() {
-        // const key = apiKey.key;
         this.fetchBaseImages();
-
-        const data = {
-            method: "flickr.photos.search",
-            api_key: key,
-            text: "yoga", // search text
-            // tags: "yoga",
-            per_page: 12,
-        };
-        const parameters = new URLSearchParams(data);
-        const url = `https://api.flickr.com/services/rest/?${parameters}&format=json&nojsoncallback=1`;
-        // console.log("url:", url);
-
-        axios
-            .get(url)
-            .then((response) => {
-                this.setState({
-                    images: response.data.photos.photo,
-                });
-                // console.log("images:", response.data.photos.photo);
-            })
-            .catch((error) => {
-                console.log("Error when fetching data from flickr:", error);
-            });
     }
 
     fetchBaseImages = () => {
         Promise.all([
             axios.get(
-                `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&text=yoga&per_page=12&format=json&nojsoncallback=1`
+                `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=yoga&per_page=12&format=json&nojsoncallback=1`
             ),
             axios.get(
-                `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&text=trecking&per_page=12&format=json&nojsoncallback=1`
+                `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=trecking&per_page=12&format=json&nojsoncallback=1`
             ),
             axios.get(
-                `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&text=surfing&per_page=12&format=json&nojsoncallback=1`
+                `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=surfing&per_page=12&format=json&nojsoncallback=1`
             ),
         ])
             .then((responesList) => {
-                console.log("responesList:", responesList);
                 this.setState({
                     yogaImages: responesList[0].data.photos.photo,
                 });
@@ -77,29 +52,56 @@ export default class App extends React.Component {
             });
     };
 
-    // test function for fetching data with parameters
-    getImages(url) {
+    searchImages = (searchTag) => {
         axios
-            .get(url)
+            .get(
+                `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=${searchTag}&per_page=12&format=json&nojsoncallback=1`
+            )
             .then((response) => {
-                console.log("images:", response.data.photos.photo);
-                return response.data.photos.photo;
-            })
-            .catch((error) => {
-                console.log("Error when fetching data from flickr", error);
+                this.setState({
+                    searchedImages: response.data.photos.photo,
+                });
             });
-    }
+    };
 
     render() {
         return (
             <BrowserRouter>
                 <div className="container">
-                    {/* <Route path="/search" component={SearchForm} /> */}
-                    {/* <Route path="/search" render={() => <SearchForm />} /> */}
                     <SearchForm />
                     <Nav />
                     {/* <Route path="/" /> */}
-                    <PhotoContainer images={this.state.surfingImages} />
+                    {/* <PhotoContainer images={this.state.surfingImages} /> */}
+                    {/* TEST -> */}
+                    <Route
+                        path="/yoga"
+                        render={() => (
+                            <PhotoContainer images={this.state.yogaImages} />
+                        )}
+                    />
+                    <Route
+                        path="/trecking"
+                        render={() => (
+                            <PhotoContainer
+                                images={this.state.treckingImages}
+                            />
+                        )}
+                    />
+                    <Route
+                        path="/surfing"
+                        render={() => (
+                            <PhotoContainer images={this.state.surfingImages} />
+                        )}
+                    />
+                    <Route
+                        path="/search"
+                        render={() => (
+                            <PhotoContainer
+                                images={this.state.searchedImages}
+                            />
+                        )}
+                    />
+                    {/* <- TEST */}
                 </div>
             </BrowserRouter>
         );
