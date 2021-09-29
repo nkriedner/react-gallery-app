@@ -1,13 +1,18 @@
 import React from "react";
 
 export default class SearchForm extends React.Component {
+    handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("HANDLE SUBMIT WAS CALLED:", this.searchTag.value);
+    };
     render() {
         return (
-            <form className="search-form">
+            <form className="search-form" onSubmit={this.handleSubmit}>
                 <input
                     type="search"
                     name="search"
                     placeholder="Search"
+                    ref={(input) => (this.searchTag = input)}
                     required
                 />
                 <button type="submit" className="search-button">
